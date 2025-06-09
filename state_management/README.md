@@ -7,7 +7,9 @@
 
 - Scoped state refers to state that is shared within a specific part of the widget tree
 - InheritedWidget is Flutter's way of passing data down the widget tree without needing to pass it manually through constructors.
-  How it works?:
+
+## How it works?:
+
 - You create a class that extends InheritedWidget.
 - Place it high in the widget tree.
 - Child widgets can access it using of(context) and will rebuild when the data changes.
