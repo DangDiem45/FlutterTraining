@@ -1,7 +1,7 @@
 ## Local state with setState()
 
-    - Local state refers to state that is contained within a **single widget** and **not shared outside** of it.
-    - setState() method is used to update that state in a StatefulWidget.
+- Local state refers to state that is contained within a **single widget** and **not shared outside** of it.
+- setState() method is used to update that state in a StatefulWidget.
 
 ## Scoped State with InheritedWidget
 
