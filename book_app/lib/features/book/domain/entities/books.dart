@@ -1,23 +1,47 @@
 import 'package:equatable/equatable.dart';
 
 class BookEntity extends Equatable {
-  String? id;
-  String? title;
-  String? author;
-  String? subject;
-  String? description;
-  String? image;
+  final int id;
+  final String title;
+  final String? subtitle;
+  final List<String> authors;
+  final String? description;
+  final String? coverUrl;
+  final String? language;
+  final DateTime? publishedDate;
+  final List<String> categories;
+  final int? pageCount;
+  final String? downloadUrl;
+  final String? onlineReadUrl;
 
   BookEntity({
-    this.id,
-    this.title,
-    this.author,
-    this.subject,
+    required this.id,
+    required this.title,
+    this.subtitle,
+    required this.authors,
     this.description,
-    this.image,
+    this.coverUrl,
+    this.language,
+    this.publishedDate,
+    required this.categories,
+    this.pageCount,
+    this.downloadUrl,
+    this.onlineReadUrl,
   });
 
-  List<Object?> get props {
-    return [id, title, author, subject, description, image];
-  }
+  @override
+  List<Object?> get props => [
+    id,
+    title,
+    subtitle,
+    authors,
+    description,
+    coverUrl,
+    language,
+    publishedDate,
+    categories,
+    pageCount,
+    downloadUrl,
+    onlineReadUrl,
+  ];
 }

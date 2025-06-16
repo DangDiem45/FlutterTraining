@@ -1,1 +1,1 @@
-const String bookApiBaseURL = "https://covers.openlibrary.org";
+const String bookApiBaseURL = "https://catalog.feedbooks.com";
