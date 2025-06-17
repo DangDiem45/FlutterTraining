@@ -1,11 +1,17 @@
-import 'package:book_app/features/book/presentation/pages/book_list_screen.dart';
+import 'package:book_app/core/util/app_router.dart';
+import 'package:book_app/core/util/service_locator.dart';
+import 'package:book_app/features/book/domain/usecases/fetch_feature_book.dart';
+import 'package:book_app/features/book/domain/usecases/fetch_newest_book.dart';
+import 'package:book_app/features/book/presentation/bloc/feature_books.dart/feature_books_bloc.dart';
+import 'package:book_app/features/book/presentation/bloc/feature_books.dart/feature_books_event.dart';
+import 'package:book_app/features/book/presentation/bloc/newest_books/newest_books_bloc.dart';
+import 'package:book_app/features/book/presentation/bloc/newest_books/newest_books_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import 'core/di/injection_container.dart' as di;
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
+void main() {
+  setUpServiceLocator();
   runApp(const MyApp());
 }
 
@@ -14,28 +20,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Feedbooks Reader',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2E7D32),
-          brightness: Brightness.light,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create:
+              (context) =>
+                  FeaturedBooksBloc(getIt.get<FetchFeaturedBooks>())
+                    ..add(FetchFeaturedBooksEvent()),
         ),
-        appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
-        // cardTheme: CardTheme(
-        //   elevation: 2,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(12),
-        //   ),
-        // ),
-        chipTheme: ChipThemeData(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+        BlocProvider(
+          create:
+              (context) =>
+                  NewestBooksBloc(getIt.get<FetchNewestBooks>())
+                    ..add(FetchNewestBooksEvent(startIndex: 0)),
         ),
+      ],
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
+        debugShowCheckedModeBanner: false,
       ),
-      home: const BookListScreen(),
     );
   }
 }
