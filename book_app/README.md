@@ -13,22 +13,33 @@ A Flutter application that fetches and displays book information from the Google
 ## Installation
 
 1. Clone the repository:
+   ```bash
    git clone <your-repo-url>
    cd google-books-app
+   ```
 2. Install dependencies:
+   ```bash
    flutter pub get
+   ```
 3. Configure API Key:
+   ```bash
    Open core/constant/constants.dart.
    Replace YOUR_API_KEY with your Google Books API key
+   ```
 4. Run the app:
 
 - For Android/iOS emulator:
+  ```bash
   flutter run -d <device_id>
+  ```
 - For Web:
+  ```bash
   flutter run -d chrome
+  ```
 
 ## Project Structure
 
+        ```bash
         book/
         ├── core/
         │ ├── constant/
