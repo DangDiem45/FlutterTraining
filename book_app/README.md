@@ -39,7 +39,6 @@ A Flutter application that fetches and displays book information from the Google
 
 ## Project Structure
 
-        ```bash
         book/
         ├── core/
         │ ├── constant/
