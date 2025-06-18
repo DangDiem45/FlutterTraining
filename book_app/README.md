@@ -29,52 +29,52 @@ A Flutter application that fetches and displays book information from the Google
 
 ## Project Structure
 
-book/
-├── core/  
-│ ├── constant/  
-│ │ └── constants.dart
-│ ├── error/  
-│ │ └── failures.dart
-│ └── util/  
-│ ├── api_service.dart  
-│ ├── api_router.dart  
-│ └── service_locator.dart
-├── features_book/  
-│ ├── data/  
-│ │ ├── models/  
-│ │ │ └── books.dart
-│ │ └── repository/  
-│ │ └── book_repository_impl.dart
-│ ├── domain/  
-│ │ ├── entities/  
-│ │ │ └── books.dart
-│ │ └── repository/  
-│ │ └── book_repository.dart
-│ └── usecases/  
-│ ├── fetch_feature_book.dart
-│ ├── fetch_newest_book.dart
-│ └── fetch_similar_book.dart
-├── presentation/  
-│ ├── bloc/  
-│ │ ├── feature_books/  
-│ │ │ ├── newest_books_bloc.dart
-│ │ │ ├── newest_books_event.dart
-│ │ │ └── newest_books_state.dart
-│ │ └── similar_books/  
-│ │ ├── similar_books_bloc.dart
-│ │ ├── similar_books_event.dart
-│ │ └── similar_books_state.dart
-│ ├── view/  
-│ │ ├── detail/  
-│ │ │ ├── books_detail_view_body.dart
-│ │ │ └── books_detail_view.dart
-│ │ ├── home/  
-│ │ │ ├── home_view_body.dart
-│ │ │ └── home.dart
-│ │ └── widgets/  
-│ │ ├── detail/  
-│ │ │ ├── books_detail_header_view.dart
-│ │ │ └── books_detail_info_view.dart
-│ │ ├── section_title.dart
-│ │ └── similar_books.dart
-└── main.dart
+        book/
+        ├── core/
+        │ ├── constant/
+        │ │ └── constants.dart
+        │ ├── error/
+        │ │ └── failures.dart
+        │ └── util/
+        │ ├── api_service.dart
+        │ ├── api_router.dart
+        │ └── service_locator.dart
+        ├── features_book/
+        │ ├── data/
+        │ │ ├── models/
+        │ │ │ └── books.dart
+        │ │ └── repository/
+        │ │ └── book_repository_impl.dart
+        │ ├── domain/
+        │ │ ├── entities/
+        │ │ │ └── books.dart
+        │ │ └── repository/
+        │ │ └── book_repository.dart
+        │ └── usecases/
+        │ ├── fetch_feature_book.dart
+        │ ├── fetch_newest_book.dart
+        │ └── fetch_similar_book.dart
+        ├── presentation/
+        │ ├── bloc/
+        │ │ ├── feature_books/
+        │ │ │ ├── newest_books_bloc.dart
+        │ │ │ ├── newest_books_event.dart
+        │ │ │ └── newest_books_state.dart
+        │ │ └── similar_books/
+        │ │ ├── similar_books_bloc.dart
+        │ │ ├── similar_books_event.dart
+        │ │ └── similar_books_state.dart
+        │ ├── view/
+        │ │ ├── detail/
+        │ │ │ ├── books_detail_view_body.dart
+        │ │ │ └── books_detail_view.dart
+        │ │ ├── home/
+        │ │ │ ├── home_view_body.dart
+        │ │ │ └── home.dart
+        │ │ └── widgets/
+        │ │ ├── detail/
+        │ │ │ ├── books_detail_header_view.dart
+        │ │ │ └── books_detail_info_view.dart
+        │ │ ├── section_title.dart
+        │ │ └── similar_books.dart
+        └── main.dart
