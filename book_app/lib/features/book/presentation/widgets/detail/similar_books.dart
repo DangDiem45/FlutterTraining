@@ -28,7 +28,7 @@ class SimilarBooks extends StatelessWidget {
                     Icon(
                       Icons.book_outlined,
                       size: 64,
-                      color: Color(0xFFFF7043), // Sáng hơn một chút
+                      color: Color(0xFFFF7043),
                     ),
                     const SizedBox(height: 16),
                     Text(

@@ -57,7 +57,7 @@ class BooksDetailHeaderView extends StatelessWidget {
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFE0E0E0), // Màu sáng cho nền tối
+              color: Color(0xFFE0E0E0),
             ),
             textAlign: TextAlign.center,
             maxLines: 3,
@@ -68,7 +68,7 @@ class BooksDetailHeaderView extends StatelessWidget {
             bookItems.volumeInfo?.authors?.join(', ') ?? 'Unknown Author',
             style: const TextStyle(
               fontSize: 16,
-              color: Color(0xFFB0B0B0), // Màu sáng cho nền tối
+              color: Color(0xFFB0B0B0),
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,

@@ -47,7 +47,7 @@ class BooksDetailInfoView extends StatelessWidget {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFE0E0E0), // Đổi thành màu sáng cho nền tối
+              color: Color(0xFFE0E0E0),
             ),
           ),
           const SizedBox(height: 8),
@@ -76,7 +76,7 @@ class BooksDetailInfoView extends StatelessWidget {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Color(0xFFE0E0E0), // Đổi thành màu sáng cho nền tối
+            color: Color(0xFFE0E0E0),
           ),
         ),
         Expanded(
