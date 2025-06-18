@@ -18,15 +18,15 @@ class BookRepositoryImpl implements BookRepository {
     try {
       final data = await apiService.get(
         endPoint:
-            'volumes?filter=free-ebooks&orderBy=newest&q=programming&startIndex=$startIndex&key=$bookApiKey',
+            'volumes?Filtering=free-ebooks&Sorting=newest&q=programming&startIndex=$startIndex',
       );
 
       final bookModel = BookModel.fromJson(data);
       return Right(bookModel.toEntity() as BookEntity);
     } on DioException catch (e) {
-      print(
-        'DioException in fetchNewestBooks: ${e.message}, Type: ${e.type}, Response: ${e.response?.data}, StackTrace: ${e.stackTrace}',
-      );
+      // print(
+      //   'DioException in fetchNewestBooks: ${e.message}, Type: ${e.type}, Response: ${e.response?.data}, StackTrace: ${e.stackTrace}',
+      // );
       return Left(ServerFailure.fromDioException(e));
     }
   }
@@ -35,15 +35,30 @@ class BookRepositoryImpl implements BookRepository {
   Future<Either<Failure, BookEntity>> fetchFeaturedBooks() async {
     try {
       final data = await apiService.get(
-        endPoint:
-            'volumes?filter=free-ebooks&q=computer science&key=$bookApiKey',
+        endPoint: 'volumes?Filtering=free-ebooks&q=computer science',
       );
       final bookModel = BookModel.fromJson(data);
       return Right(bookModel.toEntity() as BookEntity);
     } on DioException catch (e) {
-      print(
-        'DioException in fetchFeaturedBooks: ${e.message}, Type: ${e.type}, Response: ${e.response?.data}, StackTrace: ${e.stackTrace}',
+      // print(
+      //   'DioException in fetchFeaturedBooks: ${e.message}, Type: ${e.type}, Response: ${e.response?.data}, StackTrace: ${e.stackTrace}',
+      // );
+      return Left(ServerFailure.fromDioException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookEntity>> fetchSimilarBooks({
+    required String categories,
+  }) async {
+    try {
+      final data = await apiService.get(
+        endPoint:
+            'volumes?Filtering=free-ebooks&Sorting=relevance&q=Subject:$categories&key=$bookApiKey',
       );
+      final bookModel = BookModel.fromJson(data);
+      return Right(bookModel.toEntity() as BookEntity);
+    } on DioException catch (e) {
       return Left(ServerFailure.fromDioException(e));
     }
   }

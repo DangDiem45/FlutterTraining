@@ -2,13 +2,12 @@ import 'package:book_app/core/util/app_router.dart';
 import 'package:book_app/core/util/service_locator.dart';
 import 'package:book_app/features/book/domain/usecases/fetch_feature_book.dart';
 import 'package:book_app/features/book/domain/usecases/fetch_newest_book.dart';
-import 'package:book_app/features/book/presentation/bloc/feature_books.dart/feature_books_bloc.dart';
-import 'package:book_app/features/book/presentation/bloc/feature_books.dart/feature_books_event.dart';
+import 'package:book_app/features/book/presentation/bloc/feature_books/feature_books_bloc.dart';
+import 'package:book_app/features/book/presentation/bloc/feature_books/feature_books_event.dart';
 import 'package:book_app/features/book/presentation/bloc/newest_books/newest_books_bloc.dart';
 import 'package:book_app/features/book/presentation/bloc/newest_books/newest_books_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   setUpServiceLocator();
@@ -37,6 +36,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
+        theme: ThemeData.dark(useMaterial3: true),
         debugShowCheckedModeBanner: false,
       ),
     );

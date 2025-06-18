@@ -1,10 +1,9 @@
 import 'package:book_app/features/book/presentation/bloc/newest_books/newest_books_state.dart';
-import 'package:book_app/features/book/presentation/widgets/best_seller_list_view.dart';
-import 'package:book_app/features/book/presentation/widgets/feature_book_list_view.dart';
+import 'package:book_app/features/book/presentation/widgets/home/best_seller_list_view.dart';
+import 'package:book_app/features/book/presentation/widgets/home/feature_book_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import '../bloc/newest_books/newest_books_bloc.dart';
+import '../../bloc/newest_books/newest_books_bloc.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -12,12 +11,11 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 16),
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+          SizedBox(height: 16),
           const Text(
             'Featured Books',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
@@ -42,7 +40,7 @@ class HomeViewBody extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: BestSellerListViewItem(
-                          bookItem: state.books.items![index],
+                          bookItems: state.books.items![index],
                         ),
                       );
                     },

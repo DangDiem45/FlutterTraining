@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:book_app/features/book/domain/usecases/fetch_feature_book.dart';
-import 'package:book_app/features/book/presentation/bloc/feature_books.dart/feature_books_event.dart';
-import 'package:book_app/features/book/presentation/bloc/feature_books.dart/feature_books_state.dart';
+import 'package:book_app/features/book/presentation/bloc/feature_books/feature_books_event.dart';
+import 'package:book_app/features/book/presentation/bloc/feature_books/feature_books_state.dart';
 
 class FeaturedBooksBloc extends Bloc<FeaturedBooksEvent, FeaturedBooksState> {
   final FetchFeaturedBooks fetchFeaturedBooks;

@@ -3,6 +3,7 @@ import 'package:book_app/features/book/data/repository/book_repository_impl.dart
 import 'package:book_app/features/book/domain/repository/book_repository.dart';
 import 'package:book_app/features/book/domain/usecases/fetch_feature_book.dart';
 import 'package:book_app/features/book/domain/usecases/fetch_newest_book.dart';
+import 'package:book_app/features/book/domain/usecases/fetch_similar_book.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -18,5 +19,8 @@ void setUpServiceLocator() {
   );
   getIt.registerSingleton<FetchFeaturedBooks>(
     FetchFeaturedBooks(getIt.get<BookRepository>()),
+  );
+  getIt.registerSingleton<FetchSimilarBooks>(
+    FetchSimilarBooks(getIt.get<BookRepository>()),
   );
 }

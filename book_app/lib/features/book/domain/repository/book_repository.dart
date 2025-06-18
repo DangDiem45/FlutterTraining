@@ -7,4 +7,7 @@ abstract class BookRepository {
     required int startIndex,
   });
   Future<Either<Failure, BookEntity>> fetchFeaturedBooks();
+  Future<Either<Failure, BookEntity>> fetchSimilarBooks({
+    required String categories,
+  });
 }
