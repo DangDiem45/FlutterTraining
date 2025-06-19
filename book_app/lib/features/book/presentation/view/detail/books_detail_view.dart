@@ -2,6 +2,7 @@ import 'package:book_app/features/book/domain/entities/books.dart';
 import 'package:book_app/features/book/presentation/bloc/similar_books/similar_books_bloc.dart';
 import 'package:book_app/features/book/presentation/bloc/similar_books/similar_books_event.dart';
 import 'package:book_app/features/book/presentation/view/detail/books_detail_view_body.dart';
+import 'package:book_app/features/book/presentation/widgets/detail/similar_books.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +47,34 @@ class _BooksDetailViewState extends State<BooksDetailView> {
           overflow: TextOverflow.ellipsis,
         ),
       ),
-      body: SafeArea(child: BooksDetailViewBody(bookItems: widget.bookItems)),
+      body: Scaffold(
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final isLargeScreen = constraints.maxWidth > 600;
+            return SafeArea(
+              child: OrientationBuilder(
+                builder: (context, orientation) {
+                  if (isLargeScreen) {
+                    return Row(
+                      children: [
+                        Flexible(flex: 1, child: SimilarBooks()),
+                        Flexible(
+                          flex: 2,
+                          child: BooksDetailViewBody(
+                            bookItems: widget.bookItems,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return BooksDetailViewBody(bookItems: widget.bookItems);
+                  }
+                },
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

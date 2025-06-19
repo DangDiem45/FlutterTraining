@@ -7,6 +7,10 @@ class BooksDetailHeaderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final imageHeight = screenWidth > 600 ? 300.0 : 250.0;
+    final imageWidth = screenWidth > 600 ? 200.0 : 170.0;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -21,8 +25,8 @@ class BooksDetailHeaderView extends StatelessWidget {
           Hero(
             tag: 'book_image_${bookItems.id}',
             child: Container(
-              height: 250,
-              width: 170,
+              height: imageHeight,
+              width: imageWidth,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
@@ -54,10 +58,10 @@ class BooksDetailHeaderView extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             bookItems.volumeInfo?.title ?? 'No Title',
-            style: const TextStyle(
-              fontSize: 24,
+            style: TextStyle(
+              fontSize: screenWidth > 600 ? 28 : 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFE0E0E0),
+              color: const Color(0xFFE0E0E0),
             ),
             textAlign: TextAlign.center,
             maxLines: 3,
@@ -66,9 +70,9 @@ class BooksDetailHeaderView extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             bookItems.volumeInfo?.authors?.join(', ') ?? 'Unknown Author',
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFFB0B0B0),
+            style: TextStyle(
+              fontSize: screenWidth > 600 ? 18 : 16,
+              color: const Color(0xFFB0B0B0),
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,

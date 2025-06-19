@@ -6,10 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class FeaturedBooksListView extends StatelessWidget {
-  const FeaturedBooksListView({super.key});
+  const FeaturedBooksListView({
+    super.key,
+    required this.isLargeScreen,
+    required this.orientation,
+  });
+  final bool isLargeScreen;
+  final Orientation orientation;
 
   @override
   Widget build(BuildContext context) {
+    final imageWidth = isLargeScreen ? 150.0 : 120.0;
+    final imageHeight = isLargeScreen ? 250.0 : 200.0;
+
     return BlocBuilder<FeaturedBooksBloc, FeaturedBooksState>(
       builder: (context, state) {
         if (state is FeaturedBooksLoading) {
@@ -37,8 +46,8 @@ class FeaturedBooksListView extends StatelessWidget {
                               ?.imageLinks
                               ?.thumbnail ??
                           '',
-                      height: 200,
-                      width: 120,
+                      height: imageHeight,
+                      width: imageWidth,
                       fit: BoxFit.fill,
                       errorBuilder:
                           (context, error, stackTrace) => Icon(Icons.error),

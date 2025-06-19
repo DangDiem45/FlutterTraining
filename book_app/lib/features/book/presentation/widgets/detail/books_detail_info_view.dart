@@ -7,6 +7,9 @@ class BooksDetailInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final fontSize = screenWidth > 600 ? 16.0 : 14.0;
+
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(20),
@@ -28,34 +31,37 @@ class BooksDetailInfoView extends StatelessWidget {
             'Publisher',
             bookItems.volumeInfo?.publisher ?? 'Unknown',
             Icons.business,
+            fontSize,
           ),
           const SizedBox(height: 12),
           buildInfoRow(
             'Published',
             bookItems.volumeInfo?.publishedDate ?? 'Unknown',
             Icons.calendar_today,
+            fontSize,
           ),
           const SizedBox(height: 12),
           buildInfoRow(
             'Pages',
             '${bookItems.volumeInfo?.pageCount ?? 'Unknown'}',
             Icons.menu_book,
+            fontSize,
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Description',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: screenWidth > 600 ? 20 : 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFE0E0E0),
+              color: const Color(0xFFE0E0E0),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             bookItems.volumeInfo?.description ?? 'No description available.',
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFFB0B0B0),
+            style: TextStyle(
+              fontSize: screenWidth > 600 ? 16.0 : 14.0,
+              color: const Color(0xFFB0B0B0),
               height: 1.5,
             ),
             maxLines: 6,
@@ -66,17 +72,22 @@ class BooksDetailInfoView extends StatelessWidget {
     );
   }
 
-  Widget buildInfoRow(String label, String value, IconData icon) {
+  Widget buildInfoRow(
+    String label,
+    String value,
+    IconData icon,
+    double fontSize,
+  ) {
     return Row(
       children: [
         Icon(icon, size: 20, color: const Color(0xFFFF7043)),
         const SizedBox(width: 12),
         Text(
           '$label: ',
-          style: const TextStyle(
-            fontSize: 14,
+          style: TextStyle(
+            fontSize: fontSize,
             fontWeight: FontWeight.w600,
-            color: Color(0xFFE0E0E0),
+            color: const Color(0xFFE0E0E0),
           ),
         ),
         Expanded(

@@ -9,8 +9,11 @@ class SimilarBooks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: isLargeScreen ? 24 : 16),
       child: BlocBuilder<SimilarBooksBloc, SimilarBooksState>(
         builder: (context, state) {
           if (state is SimilarBooksLoading) {
@@ -62,6 +65,7 @@ class SimilarBooks extends StatelessWidget {
                   ),
                   child: BestSellerListViewItem(
                     bookItems: state.books.items![index],
+                    isLargeScreen: isLargeScreen,
                   ),
                 );
               },

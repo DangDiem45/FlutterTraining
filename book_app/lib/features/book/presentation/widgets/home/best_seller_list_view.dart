@@ -5,11 +5,20 @@ import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BestSellerListViewItem extends StatelessWidget {
-  const BestSellerListViewItem({super.key, required this.bookItems});
+  const BestSellerListViewItem({
+    super.key,
+    required this.bookItems,
+    required this.isLargeScreen,
+  });
   final BookItemsEntity bookItems;
+  final bool isLargeScreen;
 
   @override
   Widget build(BuildContext context) {
+    final imageHeight = isLargeScreen ? 150.0 : 100.0;
+    final imageWidth = isLargeScreen ? 100.0 : 80.0;
+    final fontSize = isLargeScreen ? 16.0 : 14.0;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -21,8 +30,8 @@ class BestSellerListViewItem extends StatelessWidget {
           children: [
             Image.network(
               bookItems.volumeInfo?.imageLinks?.thumbnail ?? '',
-              height: 80,
-              width: 60,
+              height: imageHeight,
+              width: imageWidth,
               fit: BoxFit.cover,
             ),
             SizedBox(width: 16),
@@ -33,7 +42,7 @@ class BestSellerListViewItem extends StatelessWidget {
                   Text(
                     bookItems.volumeInfo?.title ?? '',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: fontSize,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'GT-Sectra-Fine-Regular',
                     ),
@@ -44,7 +53,10 @@ class BestSellerListViewItem extends StatelessWidget {
                   Text(
                     bookItems.volumeInfo?.authors?.join(', ') ??
                         'Unknown Author',
-                    style: TextStyle(fontSize: 10, color: Colors.grey),
+                    style: TextStyle(
+                      fontSize: fontSize - 4,
+                      color: Colors.grey,
+                    ),
                   ),
                   SizedBox(height: 5),
                   Row(
@@ -54,7 +66,10 @@ class BestSellerListViewItem extends StatelessWidget {
                         bookItems.saleInfo!.listPrice?.amount != null
                             ? '${bookItems.saleInfo!.listPrice?.amount} ${bookItems.saleInfo!.listPrice?.currencyCode}'
                             : 'Free',
-                        style: TextStyle(fontSize: 12, color: Colors.green),
+                        style: TextStyle(
+                          fontSize: fontSize - 2,
+                          color: Colors.green,
+                        ),
                       ),
                       SizedBox(width: 35),
                       Icon(
@@ -66,14 +81,20 @@ class BestSellerListViewItem extends StatelessWidget {
                       Text(
                         bookItems.volumeInfo?.averageRating?.toString() ??
                             '0.0',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        style: TextStyle(
+                          fontSize: fontSize - 2,
+                          color: Colors.grey,
+                        ),
                       ),
                       SizedBox(width: 1),
                       Text(
                         bookItems.volumeInfo?.ratingsCount != null
                             ? '(${bookItems.volumeInfo?.ratingsCount})'
                             : '(0)',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        style: TextStyle(
+                          fontSize: fontSize - 2,
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
