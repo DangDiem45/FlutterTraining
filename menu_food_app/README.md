@@ -9,7 +9,8 @@ SOLID is an acronym for five core principles of object-oriented design. Followin
 - Testable and loosely-coupled systems
 
 1. Single Responsibility Principle (SRP)
-   A class should have only one reason to change.
+
+- A class should have only one reason to change.
 
 Bad Example:
 
@@ -34,8 +35,9 @@ void saveToFile(String data) { ... }
 ```
 
 2. Open/Closed Principle (OCP)
-   Software entities should be open for extension but closed for modification.
-   You should be able to add new features without changing existing code.
+
+- Software entities should be open for extension but closed for modification.
+- You should be able to add new features without changing existing code.
 
 Example:
 
@@ -54,7 +56,8 @@ class Square extends Shape {
 ```
 
 3. Liskov Substitution Principle (LSP)
-   Subtypes must be substitutable for their base types.
+
+- Subtypes must be substitutable for their base types.
 
 Bad:
 
@@ -78,7 +81,8 @@ abstract class FlyingBird extends Bird {
 ```
 
 4. Interface Segregation Principle (ISP)
-   Clients should not be forced to depend on interfaces they don’t use.
+
+- Clients should not be forced to depend on interfaces they don’t use.
 
 Bad:
 
@@ -102,7 +106,8 @@ abstract class Eatable {
 ```
 
 5. Dependency Inversion Principle (DIP)
-   Depend on abstractions, not concrete implementations.
+
+- Depend on abstractions, not concrete implementations.
 
 Bad
 
