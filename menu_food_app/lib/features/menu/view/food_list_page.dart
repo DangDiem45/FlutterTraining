@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:menu_food_app/features/menu/model/food_item.dart';
+import 'package:menu_food_app/features/menu/repository/food_repository.dart';
 import 'package:menu_food_app/features/menu/view/food_detail_page.dart';
 import 'package:menu_food_app/features/menu/widget/food_card.dart';
 
 class FoodListPage extends StatefulWidget {
-  const FoodListPage({Key? key}) : super(key: key);
+  const FoodListPage({Key? key, required this.foodRepository})
+      : super(key: key);
+  final FoodRepository foodRepository;
 
   @override
   State<FoodListPage> createState() => _FoodListPageState();
@@ -21,29 +24,9 @@ class _FoodListPageState extends State<FoodListPage> {
   }
 
   Future<void> _loadFoods() async {
-    await Future.delayed(const Duration(seconds: 1));
+    final foods = await widget.foodRepository.getFoods();
     setState(() {
-      _foods = [
-        FoodItem(
-          id: '1',
-          name: 'Cơm Tấm',
-          description: 'Cơm tấm sườn bì chả',
-          imageUrl:
-              'https://images.unsplash.com/photo-1512058564366-18510be2db19',
-        ),
-        FoodItem(
-          id: '2',
-          name: 'Phở Bò',
-          description: 'Phở bò thơm ngon',
-          imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c',
-        ),
-        FoodItem(
-          id: '3',
-          name: 'Bánh Mì',
-          description: 'Bánh mì pate ngon',
-          imageUrl: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a',
-        ),
-      ];
+      _foods = foods;
     });
   }
 
@@ -53,20 +36,16 @@ class _FoodListPageState extends State<FoodListPage> {
     });
   }
 
-  void _goToDetail(FoodItem food) async {
+  Future<void> _goToDetail(FoodItem food) async {
     final updatedFood = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => FoodDetailPage(food: food)),
+      MaterialPageRoute(
+          builder: (_) => FoodDetailPage(
+                food: food,
+              )),
     );
 
-    if (updatedFood != null) {
-      setState(() {
-        final index = _foods.indexWhere((f) => f.id == updatedFood.id);
-        if (index != -1) {
-          _foods[index] = updatedFood as FoodItem;
-        }
-      });
-    }
+    await _loadFoods();
   }
 
   @override

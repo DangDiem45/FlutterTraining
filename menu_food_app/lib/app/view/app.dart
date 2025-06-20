@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:menu_food_app/features/menu/repository/food_repository.dart';
 import 'package:menu_food_app/features/menu/view/food_list_page.dart';
 import 'package:menu_food_app/l10n/arb/app_localizations.dart';
 
 class MenuFoodApp extends StatelessWidget {
-  const MenuFoodApp({super.key});
+  final FoodRepository foodRepository;
+  const MenuFoodApp({super.key, required this.foodRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,9 @@ class MenuFoodApp extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const FoodListPage(),
+      home: FoodListPage(
+        foodRepository: foodRepository,
+      ),
     );
   }
 }
