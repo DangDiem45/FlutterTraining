@@ -1,49 +1,57 @@
 import 'package:book_app/core/constant/constants.dart';
 import 'package:book_app/core/error/failures.dart';
-import 'package:book_app/core/util/api_service.dart';
-import 'package:book_app/features/book/data/models/books.dart';
+import 'package:book_app/features/book/data/data_source/books_api_service.dart';
 import 'package:book_app/features/book/domain/entities/books.dart';
 import 'package:book_app/features/book/domain/repository/book_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class BookRepositoryImpl implements BookRepository {
-  final ApiService apiService;
-  BookRepositoryImpl(this.apiService);
+  final BooksApiService booksApiService;
+
+  BookRepositoryImpl(this.booksApiService);
 
   @override
   Future<Either<Failure, BookEntity>> fetchNewestBooks({
     required int startIndex,
   }) async {
     try {
-      final data = await apiService.get(
-        endPoint:
-            'volumes?Filtering=free-ebooks&Sorting=newest&q=programming&startIndex=$startIndex',
+      final data = await booksApiService.getBooks(
+        query: 'programming',
+        filtering: 'free-ebooks',
+        sorting: 'newest',
+        startIndex: startIndex,
+        apiKey: bookApiKey,
       );
 
-      final bookModel = BookModel.fromJson(data);
-      return Right(bookModel.toEntity() as BookEntity);
+      final entity = data.toEntity();
+
+      return Right(entity);
     } on DioException catch (e) {
-      // print(
-      //   'DioException in fetchNewestBooks: ${e.message}, Type: ${e.type}, Response: ${e.response?.data}, StackTrace: ${e.stackTrace}',
-      // );
       return Left(ServerFailure.fromDioException(e));
+    } catch (e) {
+      return Left(ServerFailure('Unexpected error: $e'));
     }
   }
 
   @override
   Future<Either<Failure, BookEntity>> fetchFeaturedBooks() async {
     try {
-      final data = await apiService.get(
-        endPoint: 'volumes?Filtering=free-ebooks&q=computer science',
+      final data = await booksApiService.getBooks(
+        query: 'computer science',
+        filtering: 'free-ebooks',
+        sorting: null,
+        startIndex: null,
+        apiKey: bookApiKey,
       );
-      final bookModel = BookModel.fromJson(data);
-      return Right(bookModel.toEntity() as BookEntity);
+
+      final entity = data.toEntity();
+
+      return Right(entity);
     } on DioException catch (e) {
-      // print(
-      //   'DioException in fetchFeaturedBooks: ${e.message}, Type: ${e.type}, Response: ${e.response?.data}, StackTrace: ${e.stackTrace}',
-      // );
       return Left(ServerFailure.fromDioException(e));
+    } catch (e) {
+      return Left(ServerFailure('Unexpected error: $e'));
     }
   }
 
@@ -52,14 +60,21 @@ class BookRepositoryImpl implements BookRepository {
     required String categories,
   }) async {
     try {
-      final data = await apiService.get(
-        endPoint:
-            'volumes?Filtering=free-ebooks&Sorting=relevance&q=Subject:$categories&key=$bookApiKey',
+      final data = await booksApiService.getBooks(
+        query: 'Subject:$categories',
+        filtering: 'free-ebooks',
+        sorting: 'relevance',
+        startIndex: null,
+        apiKey: bookApiKey,
       );
-      final bookModel = BookModel.fromJson(data);
-      return Right(bookModel.toEntity() as BookEntity);
+
+      final entity = data.toEntity();
+
+      return Right(entity);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioException(e));
+    } catch (e) {
+      return Left(ServerFailure('Unexpected error: $e'));
     }
   }
 }
