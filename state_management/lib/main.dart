@@ -9,85 +9,129 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descController = TextEditingController();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ToDo BLoC',
-      home: Scaffold(
-        appBar: AppBar(title: const Text('ToDo App (BLoC)')),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: _titleController,
-                    decoration: const InputDecoration(hintText: 'Tiêu đề...'),
+      title: 'ToDo App',
+      theme: ThemeData(primaryColor: Colors.blue),
+      debugShowCheckedModeBanner: false,
+      home: TodoList(),
+    );
+  }
+}
+
+class TodoList extends StatelessWidget {
+  const TodoList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("ToDo List")),
+      body: BlocBuilder<TodoBloc, ToDoState>(
+        builder: (context, state) {
+          if (state.todos.isEmpty) {
+            return Center(child: Text('No Todo item'));
+          }
+          return ListView.builder(
+            itemCount: state.todos.length,
+            itemBuilder: (context, index) {
+              final todo = state.todos[index];
+              return ListTile(
+                leading: Checkbox(
+                  value: todo.isDone,
+                  onChanged: (_) {
+                    context.read<TodoBloc>().add(ToggleTodo(index));
+                  },
+                ),
+                title: Text(
+                  todo.title,
+                  style: TextStyle(
+                    decoration: todo.isDone ? TextDecoration.lineThrough : null,
                   ),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: _descController,
-                    decoration: const InputDecoration(hintText: 'Mô tả...'),
-                  ),
-                  const SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      final title = _titleController.text.trim();
-                      final desc = _descController.text.trim();
-                      if (title.isNotEmpty) {
-                        context.read<TodoBloc>().add(AddToDo(title, desc));
-                        _titleController.clear();
-                        _descController.clear();
-                      }
-                    },
-                    child: const Text('Thêm việc'),
-                  ),
-                ],
-              ),
+                ),
+                subtitle: Text(todo.description),
+                trailing: IconButton(
+                  onPressed: () {
+                    context.read<TodoBloc>().add(RemoveToDo(index));
+                  },
+                  icon: Icon(Icons.delete, color: Colors.red),
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TodoApp()),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class TodoApp extends StatefulWidget {
+  const TodoApp({super.key});
+
+  @override
+  State<TodoApp> createState() => _TodoAppState();
+}
+
+class _TodoAppState extends State<TodoApp> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  void _submit() {
+    final title = _titleController.text.trim();
+    final description = _descriptionController.text.trim();
+
+    if (title.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Title cannot be empty')));
+      return;
+    }
+
+    context.read<TodoBloc>().add(AddToDo(title, description));
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("ToDo App")),
+      body: Column(
+        children: [
+          TextFormField(
+            controller: _titleController,
+            decoration: InputDecoration(
+              labelText: 'Title',
+              hintText: 'Enter title',
             ),
-            Expanded(
-              child: BlocBuilder<TodoBloc, ToDoState>(
-                builder: (context, state) {
-                  if (state.todos.isEmpty) {
-                    return const Center(child: Text('Chưa có việc nào.'));
-                  }
-                  return ListView.builder(
-                    itemCount: state.todos.length,
-                    itemBuilder: (context, index) {
-                      final todo = state.todos[index];
-                      return ListTile(
-                        leading: Checkbox(
-                          value: todo.isDone,
-                          onChanged: (_) {
-                            context.read<TodoBloc>().add(ToggleTodo(index));
-                          },
-                        ),
-                        title: Text(
-                          todo.title,
-                          style: TextStyle(
-                            decoration:
-                                todo.isDone ? TextDecoration.lineThrough : null,
-                          ),
-                        ),
-                        subtitle: Text(todo.description),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            context.read<TodoBloc>().add(RemoveToDo(index));
-                          },
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+          ),
+          SizedBox(height: 20),
+          TextFormField(
+            controller: _descriptionController,
+            decoration: InputDecoration(
+              labelText: 'Description',
+              hintText: 'Enter description',
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: _submit,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              child: Text('Add ToDo', style: TextStyle(color: Colors.black)),
+            ),
+          ),
+        ],
       ),
     );
   }
