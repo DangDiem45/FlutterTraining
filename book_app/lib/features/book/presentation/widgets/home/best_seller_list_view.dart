@@ -3,6 +3,7 @@ import 'package:book_app/features/book/domain/entities/books.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class BestSellerListViewItem extends StatelessWidget {
   const BestSellerListViewItem({
@@ -28,11 +29,28 @@ class BestSellerListViewItem extends StatelessWidget {
         onTap: () => context.push(AppRouter.kBookDetails, extra: bookItems),
         child: Row(
           children: [
-            Image.network(
-              bookItems.volumeInfo?.imageLinks?.thumbnail ?? '',
+            // Image.network(
+            //   bookItems.volumeInfo?.imageLinks?.thumbnail ?? '',
+            //   height: imageHeight,
+            //   width: imageWidth,
+            //   fit: BoxFit.cover,
+            // ),
+            CachedNetworkImage(
+              imageUrl: bookItems.volumeInfo?.imageLinks?.thumbnail ?? '',
               height: imageHeight,
               width: imageWidth,
               fit: BoxFit.cover,
+              placeholder: (context, url) => Container(
+                color: Colors.grey[200],
+                height: imageHeight,
+                width: imageWidth,
+              ),
+              errorWidget: (context, url, error) => Container(
+                color: Colors.grey[300],
+                height: imageHeight,
+                width: imageWidth,
+                child: Icon(Icons.broken_image, color: Colors.grey),
+              ),
             ),
             SizedBox(width: 16),
             Expanded(

@@ -1,5 +1,3 @@
-// import 'package:book_app/features/book/domain/entities/books.dart';
-import 'package:book_app/features/book/domain/entities/books.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'books.freezed.dart';

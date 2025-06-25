@@ -47,12 +47,14 @@ dependencies:
   retrofit: ^4.4.2
   json_annotation: ^4.9.0
   freezed_annotation: ^3.0.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   json_serializable: ^6.9.5
   build_runner: ^2.5.4
   retrofit_generator: ^9.2.0
   freezed: ^3.0.6
+
   flutter_test:
     sdk: flutter
 

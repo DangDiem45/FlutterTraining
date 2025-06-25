@@ -9,7 +9,7 @@ import 'package:book_app/features/book/presentation/bloc/newest_books/newest_boo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+Future<void> main() async {
   setUpServiceLocator();
   runApp(const MyApp());
 }
@@ -22,16 +22,14 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create:
-              (context) =>
-                  FeaturedBooksBloc(getIt.get<FetchFeaturedBooks>())
-                    ..add(FetchFeaturedBooksEvent()),
+          create: (context) =>
+              FeaturedBooksBloc(getIt.get<FetchFeaturedBooks>())
+                ..add(FetchFeaturedBooksEvent()),
         ),
         BlocProvider(
-          create:
-              (context) =>
-                  NewestBooksBloc(getIt.get<FetchNewestBooks>())
-                    ..add(FetchNewestBooksEvent(startIndex: 0)),
+          create: (context) =>
+              NewestBooksBloc(getIt.get<FetchNewestBooks>())
+                ..add(FetchNewestBooksEvent(startIndex: 0)),
         ),
       ],
       child: MaterialApp.router(

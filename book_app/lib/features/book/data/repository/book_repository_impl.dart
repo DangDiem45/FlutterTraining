@@ -1,5 +1,6 @@
 import 'package:book_app/core/constant/constants.dart';
 import 'package:book_app/core/error/failures.dart';
+import 'package:book_app/core/util/service_locator.dart';
 import 'package:book_app/features/book/data/data_source/books_api_service.dart';
 import 'package:book_app/features/book/data/models/mapper.dart';
 import 'package:book_app/features/book/domain/entities/books.dart';
@@ -24,11 +25,21 @@ class BookRepositoryImpl implements BookRepository {
         startIndex: startIndex,
         apiKey: bookApiKey,
       );
+      await getIt<BookCacheService>().saveBooksToCache(
+        data,
+        key: 'newest_book',
+      );
 
       final entity = data.toEntity();
 
       return Right(entity);
     } on DioException catch (e) {
+      final cached = await getIt<BookCacheService>().getBooksFromCache(
+        key: 'newest_book',
+      );
+      if (cached != null) {
+        return Right(cached.toEntity());
+      }
       return Left(ServerFailure.fromDioException(e));
     } catch (e) {
       return Left(ServerFailure('Unexpected error: $e'));
@@ -46,10 +57,21 @@ class BookRepositoryImpl implements BookRepository {
         apiKey: bookApiKey,
       );
 
+      await getIt<BookCacheService>().saveBooksToCache(
+        data,
+        key: 'feature_book',
+      );
+
       final entity = data.toEntity();
 
       return Right(entity);
     } on DioException catch (e) {
+      final cached = await getIt<BookCacheService>().getBooksFromCache(
+        key: 'feature_book',
+      );
+      if (cached != null) {
+        return Right(cached.toEntity());
+      }
       return Left(ServerFailure.fromDioException(e));
     } catch (e) {
       return Left(ServerFailure('Unexpected error: $e'));
@@ -68,11 +90,21 @@ class BookRepositoryImpl implements BookRepository {
         startIndex: null,
         apiKey: bookApiKey,
       );
+      await getIt<BookCacheService>().saveBooksToCache(
+        data,
+        key: 'similar_book',
+      );
 
       final entity = data.toEntity();
 
       return Right(entity);
     } on DioException catch (e) {
+      final cached = await getIt<BookCacheService>().getBooksFromCache(
+        key: 'similar_book',
+      );
+      if (cached != null) {
+        return Right(cached.toEntity());
+      }
       return Left(ServerFailure.fromDioException(e));
     } catch (e) {
       return Left(ServerFailure('Unexpected error: $e'));

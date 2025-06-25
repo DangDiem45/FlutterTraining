@@ -1,5 +1,6 @@
 import 'package:book_app/features/book/domain/entities/books.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class BooksDetailHeaderView extends StatelessWidget {
   const BooksDetailHeaderView({super.key, required this.bookItems});
@@ -39,19 +40,29 @@ class BooksDetailHeaderView extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  bookItems.volumeInfo?.imageLinks?.thumbnail ?? '',
-                  fit: BoxFit.cover,
-                  errorBuilder:
-                      (context, error, stackTrace) => Container(
-                        color: Colors.grey[200],
-                        child: const Icon(
-                          Icons.book,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
+                child:
+                    // Image.network(
+                    //   bookItems.volumeInfo?.imageLinks?.thumbnail ?? '',
+                    //   fit: BoxFit.cover,
+                    //   errorBuilder:
+                    //       (context, error, stackTrace) => Container(
+                    //         color: Colors.grey[200],
+                    //         child: const Icon(
+                    //           Icons.book,
+                    //           size: 50,
+                    //           color: Colors.grey,
+                    //         ),
+                    //       ),
+                    // ),
+                    CachedNetworkImage(
+                      imageUrl:
+                          bookItems.volumeInfo?.imageLinks?.thumbnail ?? '',
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Container(
+                        color: Colors.grey[300],
+                        child: Icon(Icons.book, size: 50, color: Colors.grey),
                       ),
-                ),
+                    ),
               ),
             ),
           ),
