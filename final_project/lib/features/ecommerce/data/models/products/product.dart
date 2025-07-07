@@ -11,7 +11,7 @@ abstract class ProductModel with _$ProductModel {
     required double price,
     required String description,
     required String category,
-    required String img,
+    required String image,
     required RatingModel rating,
   }) = _ProductModel;
 
@@ -36,7 +36,7 @@ extension ProductModelExtension on ProductModel {
       price: price,
       description: description,
       category: category,
-      img: img,
+      image: image,
       rating: rating.toEntity(),
     );
   }

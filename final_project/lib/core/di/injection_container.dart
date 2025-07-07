@@ -3,7 +3,9 @@ import 'package:final_project/core/network/dio_client.dart';
 import 'package:final_project/features/ecommerce/data/datasources/products/product_api_service.dart';
 import 'package:final_project/features/ecommerce/data/repository/products/product_repository_impl.dart';
 import 'package:final_project/features/ecommerce/domain/repository/products/product_repository.dart';
+import 'package:final_project/features/ecommerce/domain/usecase/products/get_categories.dart';
 import 'package:final_project/features/ecommerce/domain/usecase/products/get_product.dart';
+import 'package:final_project/features/ecommerce/presentation/home/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -15,4 +17,7 @@ Future<void> initializeDependencies() async {
     () => ProductRepositoryImpl(apiService: sl()),
   );
   sl.registerLazySingleton(() => GetProduct(sl()));
+  sl.registerLazySingleton(() => GetCategories(sl()));
+
+  sl.registerFactory(() => HomeBloc(getProducts: sl(), getCategories: sl()));
 }

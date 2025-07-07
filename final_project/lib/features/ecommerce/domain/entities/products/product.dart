@@ -9,7 +9,7 @@ abstract class Product with _$Product {
     required double price,
     required String description,
     required String category,
-    required String img,
+    required String image,
     required Rating rating,
   }) = _Product;
 }
