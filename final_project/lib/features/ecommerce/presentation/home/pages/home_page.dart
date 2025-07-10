@@ -5,6 +5,7 @@ import 'package:final_project/features/ecommerce/presentation/home/widgets/categ
 import 'package:final_project/features/ecommerce/presentation/home/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,10 +15,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+
   @override
   void initState() {
     super.initState();
-    context.read<HomeBloc>().add(LoadHome());
+    if (_selectedIndex == 0) {
+      context.read<HomeBloc>().add(LoadHome());
+    }
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    switch (index) {
+      case 0:
+        context.go('/');
+        break;
+      case 1:
+        context.go('/search');
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+    }
   }
 
   @override
@@ -69,7 +94,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
                   SizedBox(
                     height: 40,
                     child: ListView.builder(
@@ -86,7 +110,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
                   if (state.isLoading)
                     const Center(child: CircularProgressIndicator())
                   else if (state.error != null)
@@ -125,6 +148,26 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            label: 'Saved',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
+        ],
       ),
     );
   }
