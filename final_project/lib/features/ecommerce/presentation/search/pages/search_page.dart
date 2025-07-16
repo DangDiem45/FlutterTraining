@@ -54,93 +54,93 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SearchBloc(),
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => context.go('/'),
-          ),
-          title: const Text(
-            'Search',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.notifications_outlined,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            ),
-          ],
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            context.read<SearchBloc>().add(ClearSearch());
+            context.go('/');
+          },
         ),
-        body: BlocBuilder<HomeBloc, HomeState>(
-          builder: (homeContext, homeState) {
-            return BlocBuilder<SearchBloc, SearchState>(
-              builder: (searchContext, searchState) {
-                return Column(
-                  children: [
-                    SearchBar(
-                      controller: _searchController,
-                      onChanged: (value) => _performSearch(
+        title: const Text(
+          'Search',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        builder: (homeContext, homeState) {
+          return BlocBuilder<SearchBloc, SearchState>(
+            builder: (searchContext, searchState) {
+              final query = searchState.query ?? '';
+              final searchResults = searchState.searchResults ?? [];
+              final recentSearches = searchState.recentSearches ?? [];
+              return Column(
+                children: [
+                  SearchBar(
+                    controller: _searchController,
+                    onChanged: (value) => _performSearch(
+                      searchContext.read<SearchBloc>(),
+                      value,
+                      homeState.products,
+                    ),
+                    onSubmitted: (value) {
+                      _addToRecentSearch(
+                        searchContext.read<SearchBloc>(),
+                        value,
+                      );
+                      _performSearch(
                         searchContext.read<SearchBloc>(),
                         value,
                         homeState.products,
-                      ),
-                      onSubmitted: (value) {
-                        _addToRecentSearch(
-                          searchContext.read<SearchBloc>(),
-                          value,
-                        );
-                        _performSearch(
-                          searchContext.read<SearchBloc>(),
-                          value,
-                          homeState.products,
-                        );
-                      },
-                      onClear: () =>
-                          _clearSearch(searchContext.read<SearchBloc>()),
-                    ),
-                    Suggestions(onSuggestionSelected: _onSuggestionSelected),
-                    Expanded(
-                      child: searchState.query!.isEmpty
-                          ? RecentSearches(
-                              recentSearches: searchState.recentSearches!,
-                              onRemove: (search) => searchContext
-                                  .read<SearchBloc>()
-                                  .add(RemoveRecentSearch(search)),
-                              onTap: (search) {
-                                _searchController.text = search;
-                                _performSearch(
-                                  searchContext.read<SearchBloc>(),
-                                  search,
-                                  homeState.products,
-                                );
-                              },
-                            )
-                          : searchState.searchResults!.isEmpty
-                          ? const NoResults()
-                          : SearchResults(
-                              searchResults: searchState.searchResults!,
-                              selectedCategory: searchState.selectedCategory!,
-                            ),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-        ),
+                      );
+                    },
+                    onClear: () =>
+                        _clearSearch(searchContext.read<SearchBloc>()),
+                  ),
+                  Suggestions(onSuggestionSelected: _onSuggestionSelected),
+                  Expanded(
+                    child: query.isEmpty
+                        ? RecentSearches(
+                            recentSearches: recentSearches,
+                            onRemove: (search) => searchContext
+                                .read<SearchBloc>()
+                                .add(RemoveRecentSearch(search)),
+                            onTap: (search) {
+                              _searchController.text = search;
+                              _performSearch(
+                                searchContext.read<SearchBloc>(),
+                                search,
+                                homeState.products,
+                              );
+                            },
+                          )
+                        : searchResults.isEmpty
+                        ? const NoResults()
+                        : SearchResults(
+                            searchResults: searchState.searchResults!,
+                            selectedCategory: searchState.selectedCategory!,
+                          ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }

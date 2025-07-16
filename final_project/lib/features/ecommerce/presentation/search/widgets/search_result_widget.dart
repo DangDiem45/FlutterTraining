@@ -16,47 +16,6 @@ class SearchResults extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 60,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 4, // ['All', 'T-shirts', 'Jeans', 'Shoes']
-            itemBuilder: (context, index) {
-              final categories = ['All', 'T-shirts', 'Jeans', 'Shoes'];
-              final category = categories[index];
-              final isSelected = selectedCategory == category;
-              return GestureDetector(
-                onTap: () {
-                  // Update category logic here if needed
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(right: 12),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isSelected ? Colors.black : Colors.transparent,
-                    border: Border.all(
-                      color: isSelected ? Colors.black : Colors.grey[300]!,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      category,
-                      style: TextStyle(
-                        color: isSelected ? Colors.white : Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(16),

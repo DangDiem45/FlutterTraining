@@ -6,6 +6,7 @@ import 'package:final_project/features/ecommerce/domain/repository/products/prod
 import 'package:final_project/features/ecommerce/domain/usecase/products/get_categories.dart';
 import 'package:final_project/features/ecommerce/domain/usecase/products/get_product.dart';
 import 'package:final_project/features/ecommerce/presentation/home/bloc/home_bloc.dart';
+import 'package:final_project/features/ecommerce/presentation/search/bloc/search_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -20,4 +21,5 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => GetCategories(sl()));
 
   sl.registerFactory(() => HomeBloc(getProducts: sl(), getCategories: sl()));
+  sl.registerFactory(() => SearchBloc());
 }

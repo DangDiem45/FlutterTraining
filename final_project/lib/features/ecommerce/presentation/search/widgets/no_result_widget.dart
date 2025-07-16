@@ -15,7 +15,7 @@ class NoResults extends StatelessWidget {
               color: Colors.grey[100],
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.search_off, size: 48, color: Colors.grey),
+            child: const Icon(Icons.search, size: 48, color: Colors.grey),
           ),
           const SizedBox(height: 16),
           const Text(

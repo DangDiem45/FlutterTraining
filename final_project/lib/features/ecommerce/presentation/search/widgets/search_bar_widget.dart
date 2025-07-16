@@ -64,10 +64,10 @@ class SearchBar extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.grey[100],
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(Icons.tune, color: Colors.black),
+              child: const Icon(Icons.tune, color: Colors.white),
             ),
           ),
         ],
