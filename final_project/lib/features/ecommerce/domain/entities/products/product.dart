@@ -11,6 +11,7 @@ abstract class Product with _$Product {
     required String category,
     required String image,
     required Rating rating,
+    @Default(false) bool isFavorite,
   }) = _Product;
 }
 

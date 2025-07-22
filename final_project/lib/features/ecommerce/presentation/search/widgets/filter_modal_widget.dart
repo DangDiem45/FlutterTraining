@@ -1,7 +1,6 @@
 import 'package:final_project/features/ecommerce/presentation/search/bloc/search_bloc.dart';
 import 'package:final_project/features/ecommerce/presentation/search/bloc/search_event.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchFiltersModal extends StatefulWidget {
   final SearchBloc searchBloc;

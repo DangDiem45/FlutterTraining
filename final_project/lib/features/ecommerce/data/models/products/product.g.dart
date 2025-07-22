@@ -15,6 +15,7 @@ _ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
       category: json['category'] as String,
       image: json['image'] as String,
       rating: RatingModel.fromJson(json['rating'] as Map<String, dynamic>),
+      isFavorite: json['isFavorite'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ProductModelToJson(_ProductModel instance) =>
@@ -26,6 +27,7 @@ Map<String, dynamic> _$ProductModelToJson(_ProductModel instance) =>
       'category': instance.category,
       'image': instance.image,
       'rating': instance.rating,
+      'isFavorite': instance.isFavorite,
     };
 
 _RatingModel _$RatingModelFromJson(Map<String, dynamic> json) => _RatingModel(

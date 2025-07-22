@@ -1,6 +1,7 @@
 import 'package:final_project/core/di/injection_container.dart';
 import 'package:final_project/features/ecommerce/presentation/home/bloc/home_bloc.dart';
 import 'package:final_project/features/ecommerce/presentation/home/pages/home_page.dart';
+import 'package:final_project/features/ecommerce/presentation/save/bloc/saved_bloc.dart';
 import 'package:final_project/features/ecommerce/presentation/save/pages/save_item_page.dart';
 import 'package:final_project/features/ecommerce/presentation/search/bloc/search_bloc.dart';
 import 'package:final_project/features/ecommerce/presentation/search/bloc/search_event.dart';
@@ -32,6 +33,10 @@ final GoRouter router = GoRouter(
         return SearchPage();
       },
     ),
-    GoRoute(path: '/saved', builder: (context, state) => const SaveItemPage()),
+    GoRoute(
+      path: '/saved',
+      builder: (context, state) =>
+          BlocProvider.value(value: sl<SavedBloc>(), child: SaveItemPage()),
+    ),
   ],
 );

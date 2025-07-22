@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProductModel {
 
- int get id; String get title; double get price; String get description; String get category; String get image; RatingModel get rating;
+ int get id; String get title; double get price; String get description; String get category; String get image; RatingModel get rating; bool get isFavorite;
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $ProductModelCopyWith<ProductModel> get copyWith => _$ProductModelCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category)&&(identical(other.image, image) || other.image == image)&&(identical(other.rating, rating) || other.rating == rating));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category)&&(identical(other.image, image) || other.image == image)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,price,description,category,image,rating);
+int get hashCode => Object.hash(runtimeType,id,title,price,description,category,image,rating,isFavorite);
 
 @override
 String toString() {
-  return 'ProductModel(id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rating: $rating)';
+  return 'ProductModel(id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rating: $rating, isFavorite: $isFavorite)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $ProductModelCopyWith<$Res>  {
   factory $ProductModelCopyWith(ProductModel value, $Res Function(ProductModel) _then) = _$ProductModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, double price, String description, String category, String image, RatingModel rating
+ int id, String title, double price, String description, String category, String image, RatingModel rating, bool isFavorite
 });
 
 
@@ -66,7 +66,7 @@ class _$ProductModelCopyWithImpl<$Res>
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? price = null,Object? description = null,Object? category = null,Object? image = null,Object? rating = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? price = null,Object? description = null,Object? category = null,Object? image = null,Object? rating = null,Object? isFavorite = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,8 @@ as double,description: null == description ? _self.description : description // 
 as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,rating: null == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
-as RatingModel,
+as RatingModel,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 /// Create a copy of ProductModel
@@ -95,7 +96,7 @@ $RatingModelCopyWith<$Res> get rating {
 @JsonSerializable()
 
 class _ProductModel implements ProductModel {
-  const _ProductModel({required this.id, required this.title, required this.price, required this.description, required this.category, required this.image, required this.rating});
+  const _ProductModel({required this.id, required this.title, required this.price, required this.description, required this.category, required this.image, required this.rating, this.isFavorite = false});
   factory _ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
 
 @override final  int id;
@@ -105,6 +106,7 @@ class _ProductModel implements ProductModel {
 @override final  String category;
 @override final  String image;
 @override final  RatingModel rating;
+@override@JsonKey() final  bool isFavorite;
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
@@ -119,16 +121,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category)&&(identical(other.image, image) || other.image == image)&&(identical(other.rating, rating) || other.rating == rating));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category)&&(identical(other.image, image) || other.image == image)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,price,description,category,image,rating);
+int get hashCode => Object.hash(runtimeType,id,title,price,description,category,image,rating,isFavorite);
 
 @override
 String toString() {
-  return 'ProductModel(id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rating: $rating)';
+  return 'ProductModel(id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rating: $rating, isFavorite: $isFavorite)';
 }
 
 
@@ -139,7 +141,7 @@ abstract mixin class _$ProductModelCopyWith<$Res> implements $ProductModelCopyWi
   factory _$ProductModelCopyWith(_ProductModel value, $Res Function(_ProductModel) _then) = __$ProductModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, double price, String description, String category, String image, RatingModel rating
+ int id, String title, double price, String description, String category, String image, RatingModel rating, bool isFavorite
 });
 
 
@@ -156,7 +158,7 @@ class __$ProductModelCopyWithImpl<$Res>
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? price = null,Object? description = null,Object? category = null,Object? image = null,Object? rating = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? price = null,Object? description = null,Object? category = null,Object? image = null,Object? rating = null,Object? isFavorite = null,}) {
   return _then(_ProductModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -165,7 +167,8 @@ as double,description: null == description ? _self.description : description // 
 as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,rating: null == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
-as RatingModel,
+as RatingModel,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

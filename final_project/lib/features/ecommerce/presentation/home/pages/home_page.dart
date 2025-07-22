@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
         context.go('/search');
         break;
       case 2:
+        context.go('/saved');
         break;
       case 3:
         break;
